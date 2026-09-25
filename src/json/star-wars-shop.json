@@ -19,7 +19,7 @@
       "id": "002",
       "type": "toy",
       "category": "Іграшки",
-      "image_": "/images/toys/darth-vader.jpg",
+      "image": "/star-wars-shop/images/darth-vader.jpg",
       "name": "Darth Vader Action Figure",
       "discription": "Деталізована фігурка Дарта Вейдера з рухомими частинами тіла.",
       "price": 1499,
