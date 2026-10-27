@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "data-fns": "^1.1.0",
     "date-fns": "^4.4.0",
     "normalize.css": "^8.0.1",
