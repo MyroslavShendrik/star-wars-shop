@@ -1,28 +1,19 @@
-.list{
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 10px;
-    display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(445px, 1fr)) ;
-    gap: 32px;
-    outline: 1px solid red;
+.list {
+  margin-left: calc(var(--spacing) * 2.5);
+  margin-right: calc(var(--spacing) * 2.5);
+  padding: calc(var(--spacing) * 2.5);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--sizes-cardMinWidth), 1fr));
+  gap: calc(var(--spacing) * 8);
+  outline: 1px solid var(--colors-border-list);
 }
-.item{
-    display: grid;
-    gap: 12px;
-    padding: 10px;
-    outline: 1px solid grey;
-    background-color: #ffc7d1;
+.item {
+  display: grid;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 2.5);
+  outline: 1px solid var(--colors-border-item);
+  background-color: var(--colors-card-young);
 }
-.older{
-    composes:item;
-    background-color: #f1f13c;
-}
-.old{
-    composes:item;
-    background-color: #abfcab;
-}
-.allAge{
-    composes:item;
-    background-color: rgb(179, 215, 228);
-}
+.older { composes: item; background-color: var(--colors-card-older); }
+.old { composes: item; background-color: var(--colors-card-old); }
+.allAge { composes: item; background-color: var(--colors-card-allAge); }

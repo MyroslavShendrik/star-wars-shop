@@ -1,26 +1,42 @@
+import {
+  FaImage,
+  FaCamera,
+  FaImages,
+  FaTag,
+  FaBoxOpen,
+  FaChild,
+  FaVenusMars,
+  FaFilm,
+  FaUserAstronaut,
+  FaCalendarAlt,
+  FaHourglassHalf,
+  FaDollarSign,
+  FaAlignLeft,
+  FaLightbulb,
+  FaListUl,
+  FaCartPlus,
+} from "react-icons/fa";
+import { GiLightSabers } from "react-icons/gi";
+
+import { useTheme } from "@/componets/ThemeProvider/ThemeProvider.jsx";
 import css from "./CardItem.module.css";
 import defaultImage from "./default.jpg"; //! Дефолтне зображення
 // import {setBgColor} from "@/utils"
 import {getManufacturingYears} from "@/utils";
-// console.log("default:", defaultImage);
 
-//! Стилі для текстових полів
-const textField = {
-  fontSize: "18px",
-  fontWeight: 700,
-};
+//! Текстове поле з іконкою: розмір іконки береться з theme.iconSize
+function Field({ icon: Icon, label, children }) {
+  const theme = useTheme();
 
-//! Стилі для значень текстових полів
-const textFieldValue = {
-  fontWeight: 400,
-  fontStyle: "italic",
-};
-
-//! Стилі для заголовків зображень
-const imageTitles = {
-  textAlign: "center",
-  color: "blue",
-};
+  return (
+    <p className={css.textField}>
+      <span className={css.fieldIcon}>
+        <Icon size={theme.iconSize.sm} aria-hidden="true" />
+      </span>
+      {label}: <span className={css.textFieldValue}>{children}</span>
+    </p>
+  );
+}
 
 export default function CardItem({
   name,
@@ -40,7 +56,8 @@ export default function CardItem({
   features,
   wikipedia
 }) {
-  // console.log("imageAdditional:",imageAdditional);
+  const theme = useTheme();
+
   //! Якщо зображення не завантажилося — показуємо default.jpg
   const handleImageError = (event) => {
     event.currentTarget.onerror = null;
@@ -49,7 +66,7 @@ export default function CardItem({
 
   return (
     <>
-      <h3 
+      <h3
         // style={{
         //   marginBottom: 12,
         //   padding: "12px 16px",
@@ -64,107 +81,75 @@ export default function CardItem({
         {name}
       </h3>
 
-      <h4 className={css.imageTitles}>Основне зображення</h4>
+      <h4 className={css.imageTitles}>
+        <FaImage size={theme.iconSize.sm} aria-hidden="true" />
+        Основне зображення
+      </h4>
       <a href={wikipedia} target="_blank" rel="noreferrer noopener">
-      <img
-        src={imageReal}
-        alt={`${name} — основне зображення`}
-        onError={handleImageError}
-      />
+        <img
+          src={imageReal}
+          alt={`${name} — основне зображення`}
+          onError={handleImageError}
+        />
       </a>
-      <h4 className={css.imageTitles}>Фото товару</h4>
+
+      <h4 className={css.imageTitles}>
+        <FaCamera size={theme.iconSize.sm} aria-hidden="true" />
+        Фото товару
+      </h4>
       <img
         src={imageToy}
         alt={`${name} — фото товару`}
         onError={handleImageError}
       />
-      {/* <div className={css.actualImageBox}>
-        {urlActual.map((image, index) => (
-          <img
-            // style={{
-            //   maxWidth: "calc((100% - 10px) / 2)",
-            //   borderRadius: 4,
-            // }}
-            className={css.actualImage}
-            key={index}
-            src={image}
-            alt={nameBrief}
-            // width="200"
-          />
-        ))}
-      </div> */}
-       
-      <h4 className={css.imageTitles}>Додаткове зображення</h4>
+
+      <h4 className={css.imageTitles}>
+        <FaImages size={theme.iconSize.sm} aria-hidden="true" />
+        Додаткове зображення
+      </h4>
       <div className={css.additionalImageBox}>
         {imageAdditional.map((image, index) => (
-        <img
-        className={css.imageAdditional}
-        key={index}
-        src={image}
-        alt={`${name} — додаткове фото`}
-        onError={handleImageError}
-        />
+          <img
+            className={css.imageAdditional}
+            key={index}
+            src={image}
+            alt={`${name} — додаткове фото`}
+            onError={handleImageError}
+          />
         ))}
       </div>
-      {/* <img
-        src={image?.additional || defaultImage}
-        alt={`${name} — додаткове фото`}
-        onError={handleImageError}
-      /> */}
 
-      <p className={css.textField}>
-        Категорія: <span className={css.textFieldValue}>{category}</span>
-      </p>
-
-      <p className={css.textField}>
-        Тип продукту: <span className={css.textFieldValue}>{productType}</span>
-      </p>
-
-      <p className={css.textField}>
-        Вік: <span className={css.textFieldValue}>{age}</span>
-      </p>
-
-      <p className={css.textField}>
-        Гендер: <span className={css.textFieldValue}>{gender}</span>
-      </p>
-
-      <p className={css.textField}>
-        Де з'являвся: <span className={css.textFieldValue}>{showMovie}</span>
-      </p>
-
-      <p className={css.textField}>
-        Герої: <span className={css.textFieldValue}>{character}</span>
-      </p>
-
-      <p className={css.textField}>
-        Рік випуску: <span className={css.textFieldValue}>{year}</span>
-      </p>
-
-      <p className={css.textField}>
-        Кількість років випуску: <span className={css.textFieldValue}>{getManufacturingYears(year)}</span>
-      </p>
-
-
-      <p className={css.textField}>
-        Ціна: <span className={css.textFieldValue}>{price}</span>
-      </p>
-
-      <p className={css.textField}>
-        Опис: <span className={css.textFieldValue}>{discription}</span>
-      </p>
+      <Field icon={FaTag} label="Категорія">{category}</Field>
+      <Field icon={FaBoxOpen} label="Тип продукту">{productType}</Field>
+      <Field icon={FaChild} label="Вік">{age}</Field>
+      <Field icon={FaVenusMars} label="Гендер">{gender}</Field>
+      <Field icon={FaFilm} label="Де з'являвся">{showMovie}</Field>
+      <Field icon={FaUserAstronaut} label="Герої">{character}</Field>
+      <Field icon={FaCalendarAlt} label="Рік випуску">{year}</Field>
+      <Field icon={FaHourglassHalf} label="Кількість років випуску">
+        {getManufacturingYears(year)}
+      </Field>
+      <Field icon={FaDollarSign} label="Ціна">{price}</Field>
+      <Field icon={FaAlignLeft} label="Опис">{discription}</Field>
 
       {interestingInfo && (
-        <p className={css.textField}>
-          Цікаво: <span className={css.textFieldValue}>{interestingInfo}</span>
-        </p>
+        <Field icon={FaLightbulb} label="Цікаво">{interestingInfo}</Field>
       )}
 
       {features && (
         <div>
-          <p className={css.textField}>Особливості:</p>
-          <ul>
+          <p className={css.textField}>
+            <span className={css.fieldIcon}>
+              <FaListUl size={theme.iconSize.sm} aria-hidden="true" />
+            </span>
+            Особливості:
+          </p>
+          <ul className={css.featureList}>
             {features.map((feature, index) => (
-              <li key={index}>{feature}</li>
+              <li key={index} className={css.featureItem}>
+                <GiLightSabers size={theme.iconSize.sm} aria-hidden="true" />
+                {feature}
+              </li>
             ))}
           </ul>
         </div>
@@ -175,23 +160,13 @@ export default function CardItem({
         //   width: "70%",
         //   margin: "20px auto",
         //   padding: "16px 32px",
-        //   display: "inline-block",
-        //   alignItems: "center",
-        //   fontFamily: "Franklin Gothic Medium, Arial Narrow",
-        //   fontWeight: 700,
-        //   fontSize: "1.5rem",
-        //   borderRadius: "12px",
-        //   color: "#ffffff",
-        //   cursor: "pointer",
         //   backgroundColor: "#008080",
-        //   textShadow:
-        //     "1px 1px 2px rgba(0, 0, 0, 0.4), 2px 2px 4px rgba(0, 0, 0, 0.2), 4px 4px 8px rgba(0, 0, 0, 0.1)",
-        //   boxShadow:
-        //     "inset 0 0 16px 8px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.9)",
+        //   ...
         // }}
         className={css.button}
         type="button"
       >
+        <FaCartPlus size={theme.iconSize.md} aria-hidden="true" />
         Додати до кошику
       </button>
     </>

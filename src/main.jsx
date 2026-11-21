@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { BrowserRouter } from "react-router-dom";
 import { createRoot } from 'react-dom/client'
+import { theme } from "@/constants";
+import { ThemeProvider } from "@/componets/ThemeProvider/ThemeProvider.jsx";
 import App from '@/componets/App/App.jsx'
 
 //todo: var.1  Підключення Normalize (npm i normalize.css)
@@ -12,9 +14,11 @@ import './index.css'; //! підключення Normalize і Reset CSS
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename="/star-wars-shop">
-      <App />
-     </BrowserRouter>
+<BrowserRouter basename="/star-wars-shop">
+  <ThemeProvider theme={theme}>
+    <App />
+  </ThemeProvider>
+</BrowserRouter>
   </StrictMode>,
 );
 
